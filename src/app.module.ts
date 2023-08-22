@@ -10,6 +10,8 @@ import { ProductsModule } from './products/products.module';
 import { Product } from './products/entities/product.entity';
 import { AuthModule } from './auth/auth.module';
 import { User } from './auth/entities/auth.entity';
+import { SalesModule } from './sales/sales.module';
+import { Sale } from './sales/entities/sale.entity';
 
 @Module({
   imports: [
@@ -25,7 +27,8 @@ import { User } from './auth/entities/auth.entity';
       url: 'mongodb://localhost/products',
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [Lesson, Student, Product, User],
+      autoLoadEntities: true,
+      entities: [Lesson, Student, Product, User, Sale],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -35,6 +38,7 @@ import { User } from './auth/entities/auth.entity';
     StudentModule,
     ProductsModule,
     AuthModule,
+    SalesModule,
   ],
 })
 export class AppModule {}

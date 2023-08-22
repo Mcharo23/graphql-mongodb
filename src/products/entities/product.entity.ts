@@ -1,8 +1,12 @@
+import { User } from 'src/auth/entities/auth.entity';
+import { Sale } from 'src/sales/entities/sale.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
+  ManyToOne,
   ObjectIdColumn,
   PrimaryColumn,
   UpdateDateColumn,
@@ -33,6 +37,9 @@ export class Product extends BaseEntity {
 
   @Column()
   productUrl: string[];
+
+  @ManyToMany(() => User, (user) => user.products)
+  user: User[];
 
   @CreateDateColumn()
   createdAt: Date;

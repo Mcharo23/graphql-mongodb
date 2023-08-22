@@ -1,9 +1,13 @@
+import { Product } from 'src/products/entities/product.entity';
+import { Sale } from 'src/sales/entities/sale.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   ObjectIdColumn,
+  OneToMany,
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
@@ -28,6 +32,9 @@ export class User extends BaseEntity {
 
   @Column()
   phoneNumber;
+
+  @ManyToMany(() => Product, (products) => products.user)
+  products: Product[];
 
   @Column()
   password: string;

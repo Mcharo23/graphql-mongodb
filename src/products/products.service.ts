@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class ProductsService {
+  private readonly logger = new Logger(ProductsService.name);
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
@@ -25,7 +26,7 @@ export class ProductsService {
       productUrl: createProductDto.productUrl,
     });
 
-    console.log(await product.save());
+    this.logger.log(await product.save());
 
     return product;
   }
@@ -35,7 +36,7 @@ export class ProductsService {
     if (products.length === 0) {
       throw new NotFoundException('No products found');
     }
-    console.log(products);
+    this.logger.log(products);
     return products;
   }
 
@@ -46,11 +47,11 @@ export class ProductsService {
       },
     });
 
-    console.log(product);
-
     if (!product) {
-      throw new NotFoundException(`Product ${id} not found`);
+      throw new NotFoundException(`Product not found`);
     }
+
+    this.logger.log(product);
 
     return product;
   }

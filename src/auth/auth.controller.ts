@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { User } from './entities/auth.entity';
@@ -16,6 +17,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/login')
+  @HttpCode(200)
   async login(@Body() userLogin: UserLogin): Promise<User> {
     console.log(userLogin);
     return this.authService.login(userLogin);
